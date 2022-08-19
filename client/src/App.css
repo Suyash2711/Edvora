@@ -29,8 +29,7 @@
   position: absolute;
   left: 40%;
   top: 12vh;
+  transition: opacity 1s ease-out;
   width: 50vh;
-  transition-duration: 4s;
-  transition-delay: 2s;
   /* transition-timing-function: cubic-bezier(0.15, 0.73, 0.94, 0.5); */
 }

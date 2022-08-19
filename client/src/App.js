@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 import People from "./People";
-import Details from "./Details";
 import {
   LineChart,
   Line,
@@ -11,6 +10,7 @@ import {
   AreaChart,
   Area,
   linearGradient,
+  ComposedChart,
   CartesianGrid,
   RadarChart,
   Radar,
@@ -25,8 +25,20 @@ import {
 
 const App = () => {
   const [products, setProducts] = useState([]);
+  const [data, setData] = useState([]);
+  const [finalData, setFinalData] = useState([]);
 
   const url_products = "https://assessment.api.vweb.app/products";
+  const url_orders = "https://assessment.api.vweb.app/orders";
+
+  const getData = () => {
+    axios
+      .get(url_orders)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => console.error(`Error: ${error}`));
+  };
 
   const getProducts = () => {
     axios
@@ -39,7 +51,25 @@ const App = () => {
 
   useEffect(() => {
     getProducts();
+    getData();
   }, []);
+
+  function callData() {
+    data.forEach((dat) => {
+      products.forEach((prod) => {
+        if (prod.product_id === dat.product_id) {
+          finalData.push({
+            name: prod.name,
+            quantity: dat.quantity,
+            stock: prod.stock,
+            sp: prod.selling_price,
+          });
+        }
+      });
+    });
+  }
+
+  callData();
 
   return (
     <>
@@ -87,6 +117,26 @@ const App = () => {
                   fill="url(#A87EBE)"
                 />
               </AreaChart>
+
+              {/* <ComposedChart width={730} height={250} data={finalData}>
+                <XAxis dataKey="product_id" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <CartesianGrid stroke="#f5f5f5" />
+                <Area
+                  type="monotone"
+                  dataKey={quantity}
+                  fill="#8884d8"
+                  stroke="#8884d8"
+                />
+                <Bar dataKey="stock" barSize={20} fill="#413ea0" />
+                <Line
+                  type="monotone"
+                  dataKey="selling_price"
+                  stroke="#ff7300"
+                />
+              </ComposedChart> */}
             </ResponsiveContainer>
           </div>
         </div>
