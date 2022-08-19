@@ -5,7 +5,9 @@ import { Orders } from "./Orders";
 
 const Details = (id) => {
   const [details, setDetails] = useState([]);
+  const [product, setProduct] = useState([]);
   let data = [];
+  let finalData = [];
 
   useEffect(() => {
     const getDetails = () => {
@@ -17,31 +19,58 @@ const Details = (id) => {
         .catch((error) => console.log(`Error: ${error}`));
     };
     getDetails();
+
+    const getProducts = () => {
+      axios
+        .get("https://assessment.api.vweb.app/products")
+        .then((response) => {
+          setProduct(response.data);
+        })
+        .catch((error) => console.log(`Error: ${error}`));
+    };
+    getProducts();
   }, []);
 
-  // const result = details.filter((detail) => (detail.user_id = id));
-
   function getData() {
-    console.log("Func working..........");
     details.forEach((detail) => {
       if (detail.user_id === id.id) {
-        console.log(detail.user_id, id.id);
         data.push(detail);
       }
+    });
+
+    console.log("data pushed");
+    console.log(product);
+
+    data.forEach((dat) => {
+      product.forEach((prod) => {
+        if (prod.product_id === dat.product_id) {
+          finalData.push({
+            name: prod.name,
+            quantity: dat.quantity,
+            stock: prod.stock,
+            sp: prod.selling_price,
+          });
+        }
+      });
     });
   }
 
   getData();
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
   return (
     <>
       <div className="details">
-        {data.map((dat) => {
-          return <div>{dat.user_id}</div>;
+        {console.log(finalData)}
+        {finalData.map((fn) => {
+          return (
+            <div>
+              <div>Name: {fn.name}</div>
+              <div>Quantity: {fn.quantity}</div>
+              <div>Stock: {fn.stock}</div>
+              <div>Selling Price: {fn.sp}</div>
+              <hr />
+            </div>
+          );
         })}
       </div>
     </>
