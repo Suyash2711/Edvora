@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
+import { Orders } from "./Orders";
 
 const Details = (id) => {
   const [details, setDetails] = useState([]);
@@ -12,17 +13,19 @@ const Details = (id) => {
         .then((response) => {
           setDetails(response.data);
         })
-        .catch((error) => console.error(`Error: ${error}`));
+        .catch((error) => console.log(`Error: ${error}`));
     };
     getDetails();
   }, []);
 
-  //   const result = details.filter((detail) => (detail.user_id = id));
+  console.log("Orders Page................");
+  console.log(details);
+
+  // const result = details.filter((detail) => (detail.user_id = id));
 
   return (
     <>
       <div className="details">CHELSEA!!!!!!!!!!!!!!!!!!!11</div>
-      {console.log(details)}
     </>
   );
 };

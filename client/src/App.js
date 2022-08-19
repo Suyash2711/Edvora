@@ -44,7 +44,7 @@ const App = () => {
   return (
     <>
       <div style={{ width: "1100px", height: "600px", margin: "2vh 5vh" }}>
-        <h2>Edvora</h2>
+        <h2 style={{ fontFamily: "Patrick Hand SC" }}>Edvora</h2>
         <div className="row">
           <div className="col-md-4">
             <People />
