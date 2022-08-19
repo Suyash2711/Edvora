@@ -5,6 +5,7 @@ import { Orders } from "./Orders";
 
 const Details = (id) => {
   const [details, setDetails] = useState([]);
+  let data = [];
 
   useEffect(() => {
     const getDetails = () => {
@@ -18,14 +19,31 @@ const Details = (id) => {
     getDetails();
   }, []);
 
-  console.log("Orders Page................");
-  console.log(details);
-
   // const result = details.filter((detail) => (detail.user_id = id));
+
+  function getData() {
+    console.log("Func working..........");
+    details.forEach((detail) => {
+      if (detail.user_id === id.id) {
+        console.log(detail.user_id, id.id);
+        data.push(detail);
+      }
+    });
+  }
+
+  getData();
+
+  // useEffect(() => {
+  //   getData();
+  // }, []);
 
   return (
     <>
-      <div className="details">CHELSEA!!!!!!!!!!!!!!!!!!!11</div>
+      <div className="details">
+        {data.map((dat) => {
+          return <div>{dat.user_id}</div>;
+        })}
+      </div>
     </>
   );
 };
