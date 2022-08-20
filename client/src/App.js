@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
-import People from "./People";
+import { FaRegArrowAltCircleRight } from "react-icons/fa";
+import Details from "./Details";
 import {
   LineChart,
   Line,
@@ -27,9 +28,18 @@ const App = () => {
   const [products, setProducts] = useState([]);
   const [data, setData] = useState([]);
   const [finalData, setFinalData] = useState([]);
+  const [people, setPeople] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [identifier, setIdentifier] = useState("");
 
   const url_products = "https://assessment.api.vweb.app/products";
   const url_orders = "https://assessment.api.vweb.app/orders";
+  const url_people = "http://assessment.api.vweb.app/users";
+
+  function showModalfunc(id) {
+    setShowModal(!showModal);
+    setIdentifier(id);
+  }
 
   const getData = () => {
     axios
@@ -40,6 +50,14 @@ const App = () => {
       .catch((error) => console.error(`Error: ${error}`));
   };
 
+  const getPeople = () => {
+    axios
+      .get(url_people)
+      .then((response) => {
+        setPeople(response.data);
+      })
+      .catch((error) => console.error(`Error: ${error}`));
+  };
   const getProducts = () => {
     axios
       .get(url_products)
@@ -52,6 +70,7 @@ const App = () => {
   useEffect(() => {
     getProducts();
     getData();
+    getPeople();
   }, []);
 
   function callData() {
@@ -78,7 +97,22 @@ const App = () => {
         <div className="row">
           <div className="col-md-4">
             <div>
-              <People />
+              {people.map((person) => {
+                return (
+                  <div
+                    className="person"
+                    onClick={() => showModalfunc(person.user_id)}
+                  >
+                    {person.name}
+                    <span style={{ float: "right" }}>
+                      <FaRegArrowAltCircleRight
+                        style={{ color: "rgb(63, 139, 63)" }}
+                      />
+                    </span>
+                  </div>
+                );
+              })}
+              {showModal ? <Details id={identifier} /> : null}
             </div>
           </div>
           <div className="col-md-8 right">
@@ -119,26 +153,6 @@ const App = () => {
                   fill="url(#A87EBE)"
                 />
               </AreaChart>
-
-              {/* <ComposedChart width={730} height={250} data={finalData}>
-                <XAxis dataKey="product_id" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <CartesianGrid stroke="#f5f5f5" />
-                <Area
-                  type="monotone"
-                  dataKey={quantity}
-                  fill="#8884d8"
-                  stroke="#8884d8"
-                />
-                <Bar dataKey="stock" barSize={20} fill="#413ea0" />
-                <Line
-                  type="monotone"
-                  dataKey="selling_price"
-                  stroke="#ff7300"
-                />
-              </ComposedChart> */}
             </ResponsiveContainer>
           </div>
         </div>
