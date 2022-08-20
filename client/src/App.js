@@ -34,7 +34,7 @@ const App = () => {
 
   const url_products = "https://assessment.api.vweb.app/products";
   const url_orders = "https://assessment.api.vweb.app/orders";
-  const url_people = "http://assessment.api.vweb.app/users";
+  const url_people = "https://assessment.api.vweb.app/users";
 
   function showModalfunc(id) {
     setShowModal(!showModal);

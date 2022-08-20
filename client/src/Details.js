@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import axios from "axios";
-import { Orders } from "./Orders";
 
 const Details = (id) => {
   const [details, setDetails] = useState([]);
