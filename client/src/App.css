@@ -21,15 +21,17 @@
 }
 
 .details {
-  border: solid 3px rgb(116, 111, 111);
-  background-color: rgb(210, 220, 189);
-  border-radius: 8px;
-  padding: 2px 4px;
+  border: solid 2px rgb(225, 225, 225);
+  background-color: rgb(245, 245, 245);
+  border-radius: 2px;
+  padding: 3vh 5vh;
   z-index: 2000;
   position: absolute;
   left: 40%;
   top: 12vh;
-  transition: opacity 1s ease-out;
   width: 50vh;
-  /* transition-timing-function: cubic-bezier(0.15, 0.73, 0.94, 0.5); */
+}
+
+.rule {
+  height: 1px;
 }

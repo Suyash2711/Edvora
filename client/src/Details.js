@@ -68,7 +68,7 @@ const Details = (id) => {
               <div>Quantity: {fn.quantity}</div>
               <div>Stock: {fn.stock}</div>
               <div>Selling Price: {fn.sp}</div>
-              <hr />
+              <hr className="rule" />
             </div>
           );
         })}

@@ -77,7 +77,9 @@ const App = () => {
         <h2 style={{ fontFamily: "Patrick Hand SC" }}>Edvora</h2>
         <div className="row">
           <div className="col-md-4">
-            <People />
+            <div>
+              <People />
+            </div>
           </div>
           <div className="col-md-8 right">
             <ResponsiveContainer width="100%" height="40%">
